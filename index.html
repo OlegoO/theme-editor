@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="theme-editor" lang="en">
   <head>
     <meta charset="UTF-8">
     <title>Virto Commerce Platform Style Guide</title>
@@ -51,7 +51,7 @@
           </li>
         </ul>
       </div>
-      <article class="main" ng-app="theme-editor">
+      <article class="main">
         <div class="theme-cnt">
           <div class="theme-preview" data-size="desktop">
             <!-- <iframe src="http://virtocommerce.com" scrolling="yes"></iframe> -->
@@ -78,7 +78,7 @@
             </li>
           </ul>
         </div>
-        <div class="theme-sidebar" ng-controller="EditorCtrl as editor">
+        <div class="theme-sidebar" ng-cloak ng-controller="EditorCtrl as editor">
           <div class="loader">
             <div class="loading">
               <img src="images/loader.gif" alt="">
@@ -93,9 +93,8 @@
                 <ul class="list">
                   <li class="list-item" ng-repeat="item in editor.settings" data-name="{{editor.convertName(item.name)}}" editor-set-active-pane>
                     <a class="list-link">
-                      <!-- icon should specifide in schema -->
-                      <i class="list-ico fa fa-wrench"></i>
-                      <span class="list-t">{{item.name}}</span>
+                      <i ng-class="'list-ico fa fa-' + item.icon"></i>
+                      <span class="list-t"> {{item.name}} </span>
                     </a>
                   </li>
                 </ul>
@@ -109,8 +108,8 @@
                     <i class="pane-ico fa fa-chevron-left"></i>
                   </a>
                   <div class="pane-t">
-                    <i class="pane-ico fa fa-wrench"></i>
-                    {{item.name}}
+                    <i ng-class="'pane-ico fa fa-' + item.icon"></i>
+                     {{item.name}}
                   </div>
                 </div>
                 <div class="pane-cnt">
@@ -179,7 +178,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script src="js/colorpicker.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> -->
+    <script src="node_modules/angular/angular.js"></script>
     <script src="editor/main.js"></script>
     <script src="editor/services/defaultSchema.js"></script>
     <script src="editor/controllers/editorCtrl.js"></script>
