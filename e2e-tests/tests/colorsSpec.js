@@ -38,7 +38,7 @@
       expect(items.get(14).getText()).toBe('Text');
       expect(items.get(15).getText()).toBe('Background');
       expect(items.get(16).getText()).toBe('Text');
-    })
+    });
 
     it('color pickers should have default color', function() {
       var colorPickers = element.all(by.css('#colors .pane-color .bg'));
@@ -63,7 +63,7 @@
 
     it('should change color', function() {
       var items = element.all(by.css('#colors .pane-color'));
-      
+
       items.each(function(elem, i) {
         elem.click();
         var colorPicker = element.all(by.css('.colorpicker')).get(i);
@@ -78,7 +78,7 @@
 
         expect(elem.element(by.css('.bg')).getCssValue('background-color')).toBe('rgba(12, 12, 12, 1)');
       });
-    })
+    });
 
   });
 

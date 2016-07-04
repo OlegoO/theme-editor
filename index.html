@@ -125,7 +125,7 @@
                     </div>
 
                     <!-- Select -->
-                    <label ng-if="setting.type == 'select'" for="{{setting.id}}" class="form-label">{{setting.label}}</label>
+                    <label ng-if="setting.type == 'select' && setting.label != undefined" for="{{setting.id}}" class="form-label">{{setting.label}}</label>
                     <div ng-if="setting.type == 'select'" class="form-input __select">
                       <select id="{{setting.id}}">
                         <option ng-repeat="option in setting.options" value="option.value" ng-selected="option.value == setting.default">
@@ -148,6 +148,7 @@
                     <!-- Image -->
                     <label ng-if="setting.type == 'image'" for="{{setting.id}}" class="form-label">{{setting.label}}</label>
                     <div ng-if="setting.type == 'image'" class="form-file" editor-set-image></div>
+                    <p ng-if="setting.type == 'image' && setting.info != undefined" class="form-help">{{setting.info}}</p>
                     <div ng-if="setting.type == 'image'" class="form-img"></div>
 
                     <!-- Input type="text" -->
@@ -157,9 +158,7 @@
                     </div>
 
                     <!-- Info -->
-                    <p class="form-help">
-                      {{setting.info}}
-                    </p>
+                    <p ng-if="setting.type != 'image' && setting.info != undefined" class="form-help">{{setting.info}}</p>
 
                   </div>
                 </div>
@@ -188,25 +187,25 @@
     <script src="editor/directives/setColor.js"></script>
     <script src="editor/directives/setImage.js"></script>
 
-      <script>
-           $(window).load(function () {
-               $('.theme-sidebar .loader').remove();
-           });
+    <script>
+      $(window).load(function () {
+        $('.theme-sidebar .loader').remove();
+      });
 
-          $(function () {
-              $('.js-toggle').bind('click', function () {
-                  $('#layout').toggleClass('__full-size');
-              });
+      $(function () {
+        $('.js-toggle').bind('click', function () {
+          $('#layout').toggleClass('__full-size');
+        });
 
-              $('.js-size').bind('click', function () {
-                  var $self = $(this),
-                      size = $self.attr('data-size');
+        $('.js-size').bind('click', function () {
+          var $self = $(this),
+          size = $self.attr('data-size');
 
-                  $('.js-size').removeClass('__selected');
-                  $(this).addClass('__selected');
-                  $('.theme-preview').attr('data-size', size);
-              });
-          });
-      </script>
+          $('.js-size').removeClass('__selected');
+          $(this).addClass('__selected');
+          $('.theme-preview').attr('data-size', size);
+        });
+      });
+    </script>
   </body>
 </html>

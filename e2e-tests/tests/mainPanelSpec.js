@@ -10,11 +10,6 @@
       expect(browser.getTitle()).toEqual('Virto Commerce Platform Style Guide');
     });
 
-    it('should have all items in list', function() {
-      var list = element.all(by.css('.pane-cnt .list .list-item'));
-      expect(list.count()).toBe(13);
-    });
-
     it('should have right text', function() {
       var list = element.all(by.css('.pane-cnt .list .list-item'))
       expect(list.get(0).getText()).toBe("theme_info");
