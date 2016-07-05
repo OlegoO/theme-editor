@@ -1,20 +1,5 @@
 [
   {
-    "name": "theme_info",
-    "icon": "wrench",
-    "logo": "https:\/\/cdn.shopify.com\/s\/global\/branding\/shopify_logo_256x256.png",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Boundless by Shopify"
-      },
-      {
-        "type": "paragraph",
-        "content": "This theme is fully supported by Shopify. For support and customizations, read the [theme documentation](https:\/\/docs.shopify.com\/manual\/more\/official-shopify-themes\/boundless) or contact [theme-support@shopify.com](mailto:theme-support@shopify.com?subject=[Boundless]+Theme+Support)."
-      }
-    ]
-  },
-  {
     "name": "Colors",
     "icon": "eyedropper",
     "settings": [

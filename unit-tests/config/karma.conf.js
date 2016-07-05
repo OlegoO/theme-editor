@@ -7,8 +7,11 @@ module.exports = function(config) {
       'node_modules/angular-mocks/angular-mocks.js',
       'editor/main.js',
       'editor/services/defaultSchema.js',
+      'editor/services/presets.js',
+      'editor/services/modelBuilder.js',
       'editor/controllers/editorCtrl.js',
-      'unit-tests/tests/editorCtrlSpec.js'
+      'unit-tests/tests/editorCtrlSpec.js',
+      'unit-tests/tests/modelBuilderSpec.js'
     ],
     port: 9876,
     autoWatch: true,

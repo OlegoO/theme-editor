@@ -63,7 +63,7 @@ body
             display: -ms-flex;
             display: -o-flex;
             display: flex;
-            
+
             font-size: 12px;
 
             -webkit-transition: color .3s ease;
@@ -147,7 +147,7 @@ body
                 border: none;
                 height: 100%;
                 left: 0;
-                
+
                 top: 0;
                 width: 100%;
             }
@@ -187,7 +187,7 @@ body
             .theme-cnt .__nav
             {
                 bottom: 10px;
-                
+
                 display: -webkit-flex;
                 display: -moz-flex;
                 display: -ms-flex;
@@ -339,7 +339,7 @@ body
             .sidebar-main .pane
             {
                 bottom: 0;
-                
+
                 display: -webkit-flex;
                 display: -moz-flex;
                 display: -ms-flex;
@@ -436,7 +436,7 @@ body
                         display: -ms-flex;
                         display: -o-flex;
                         display: flex;
-                        
+
                         justify-content: center;
                         left: 0;
                         position: absolute;
@@ -522,13 +522,14 @@ body
                         .pane-cnt .pressets-list
                         {
                             flex-direction: row;
+                            flex-wrap: wrap;
                             margin: 20px -10px 0;
                         }
 
                             .pressets-list .list-item
                             {
                                 border: none;
-                                padding: 0 10px;
+                                padding: 0 10px 10px;
                                 width: 50%;
 
                                 -webkit-box-sizing: border-box;

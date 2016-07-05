@@ -12,7 +12,7 @@
 
     it('should have right text', function() {
       var list = element.all(by.css('.pane-cnt .list .list-item'))
-      expect(list.get(0).getText()).toBe("theme_info");
+      expect(list.get(0).getText()).toBe("Presets");
       expect(list.get(1).getText()).toBe("Colors");
       expect(list.get(2).getText()).toBe("Typography");
       expect(list.get(3).getText()).toBe("Header");
