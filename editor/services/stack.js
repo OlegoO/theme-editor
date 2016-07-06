@@ -28,12 +28,15 @@
     };
 
     obj.get = function() {
-      if (stack.length !== 0) {
-        return stack[stack.length - 1]
+      if (stack.length > 0) {
+        return JSON.parse(JSON.stringify(stack[stack.length - 1]));
       } else {
         return stack;
       }
-      console.log(stack);
+    };
+
+    obj.getFirst = function() {
+      return JSON.parse(JSON.stringify(stack[0]));
     };
 
     obj.clear = function() {

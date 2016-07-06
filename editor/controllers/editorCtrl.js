@@ -85,11 +85,15 @@
 
     self.undo = function() {
       //History.undo('model', self);
-      self.preventWatch = true;
-      if(!stack.isLast()) {
+      if (stack.length() > 1) {
+        self.preventWatch = true;
         stack.pop();
         console.log(stack.length());
         self.model = stack.get();
+        $scope.$broadcast('modelUpdated', self.model);
+      } else {
+        console.log(stack.length());
+        self.model = stack.getFirst();
         $scope.$broadcast('modelUpdated', self.model);
       }
     };
