@@ -122,21 +122,41 @@
                   </div>
                 </div>
                 <div class="pane-cnt">
+
                   <ul class="list pressets-list">
-                      <li class="list-item" ng-repeat="(name, preset) in editor.presets.presets">
-                          <!-- TODO: presets -->
-                          <div class="list-thumbnail">{{name}}</div>
-                          <div class="list-actions">
-                              <a class="list-name">
-                                  {{name}}
-                                  <i class="list-ico fa fa-trash-o"></i>
-                              </a>
-                          </div>
-                      </li>
+                    <li class="list-item" ng-repeat="(name, preset) in editor.presets.presets">
+                      <div class="list-thumbnail" ng-class="{'super-active': name == editor.presets.current}" ng-click="editor.openPreset(name)">{{name}}</div>
+                      <div class="list-actions">
+                        <a class="list-name" ng-click="editor.removePreset(name)">
+                          {{name}}
+                          <i class="list-ico fa fa-trash-o"></i>
+                        </a>
+                      </div>
+                    </li>
+                    <li class="list-item" ng-if="editor.savingPreset">
+                      <div class="list-thumbnail">{{editor.newPresetName}}</div>
+                      <div class="list-actions">
+                        <a class="list-name">
+                          {{editor.newPresetName}}
+                          <i class="list-ico fa fa-trash-o"></i>
+                        </a>
+                      </div>
+                    </li>
                   </ul>
-                  <div class="pressets-foot">
-                      <button class="btn">Save current as new presset</button>
+
+                  <div class="new-pressets-foot" ng-if="editor.savingPreset">
+                    <label class="form-label new-preset-label">Preset name</label>
+                    <div class="form-input new-preset-input">
+                      <input type="text" ng-model="editor.newPresetName">
+                    </div>
+                    <button class="btn" ng-click="editor.endSavingPreset()">Save</button>
+                    <button class="btn" ng-click="editor.cancelSavingPreset()">Cancel</button>
                   </div>
+
+                  <div class="pressets-foot" ng-if="!editor.savingPreset">
+                    <button class="btn" ng-click="editor.startSavingPreset()">Save current as new presset</button>
+                  </div>
+
                 </div>
               </div>
 
@@ -159,8 +179,8 @@
 
                     <!-- Color picker -->
                     <div ng-if="setting.type === 'color'" class="pane-row">
-                      <editor-set-color class="pane-col pane-color" value="editor.model[setting.id]"></editor-set-color>
-                      <div class="pane-col pane-name">{{setting.label}}</div>
+                      <editor-set-color class="pane-col pane-color" id="{{setting.id}}" value="editor.model[setting.id]"></editor-set-color>
+                      <div class="pane-col pane-name" ng-click="log()">{{setting.label}}</div>
                     </div>
 
                     <!-- Select -->
@@ -206,7 +226,7 @@
             </div>
           </div>
           <div class="sidebar-foot">
-            <button class="btn">Clear changes</button>
+            <button class="btn" ng-click="editor.undo()">Clear changes</button>
             <button class="btn">Save changes</button>
           </div>
         </div>
@@ -218,10 +238,12 @@
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> -->
     <script src="node_modules/angular/angular.js"></script>
+    <script src="bower_components/angular-history/history.js"></script>
     <script src="editor/main.js"></script>
     <script src="editor/services/defaultSchema.js"></script>
     <script src="editor/services/presets.js"></script>
     <script src="editor/services/modelBuilder.js"></script>
+    <script src="editor/services/stack.js"></script>
     <script src="editor/controllers/editorCtrl.js"></script>
     <script src="editor/directives/setActivePane.js"></script>
     <script src="editor/directives/back.js"></script>

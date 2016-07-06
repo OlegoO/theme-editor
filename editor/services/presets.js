@@ -10,6 +10,16 @@
       return $http.get('settings_data.json');
     }
 
+    obj.removePreset = function(presets, name) {
+      delete presets.presets[name];
+      if (presets.current === name) {
+        for (var key in presets.presets) {
+          presets.current = key;
+          break;
+        }
+      }
+    }
+
     return obj;
   }
 

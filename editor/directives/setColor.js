@@ -15,12 +15,21 @@
         $(elem).ColorPicker({
           color: scope.value,
           onChange: function (hsb, hex, rgb) {
+            scope.$apply();
             scope.value = '#' + hex;
             $(elem).find('div').css('backgroundColor', '#' + hex);
           }
         });
 
         $(elem).children('.bg').css("background-color", scope.value);
+
+        scope.$on('modelUpdated', function(event, model) {
+          var id = attrs.id;
+          var color = model[id];
+
+          $(elem).ColorPickerSetColor(color);
+          $(elem).children('.bg').css("background-color", color);
+        });
 
       }
     };

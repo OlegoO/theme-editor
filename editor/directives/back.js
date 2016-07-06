@@ -13,6 +13,11 @@
           $('.sidebar-main .pane:nth-child(2)').removeClass('__selected');
           $('.sidebar-main .pane:first-child').removeClass('__disabled');
 
+          scope.$on('closePane', function() {
+            $('.sidebar-main .pane:nth-child(2)').removeClass('__selected');
+            $('.sidebar-main .pane:first-child').removeClass('__disabled');
+          });
+
         });
       }
     };

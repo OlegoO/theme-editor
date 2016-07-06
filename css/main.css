@@ -1,3 +1,8 @@
+.super-active {
+  background-color: red !important;
+}
+
+
 body
 {
     font-family: 'Exo 2';
@@ -511,6 +516,7 @@ body
                                 {
                                     font-size: 20px;
                                     margin: 0 10px 0 0;
+                                    /*margin: 0;*/
                                     width: 22px;
                                 }
 
@@ -849,4 +855,19 @@ body
     -ms-scrollbar-face-color: #e6e6e6;
     -ms-scrollbar-shadow-color: #e6e6e6;
     -ms-scrollbar-track-color: #f9f9f9;
+}
+
+.new-pressets-foot {
+  border-top: 1px solid #dee9f0;
+  margin: 20px 0 20px;
+  padding: 20px 0 0;
+}
+
+.new-preset-label {
+  text-align: left;
+  margin: 0 0 20px;
+}
+
+.new-preset-input {
+  margin: 0 0 20px;
 }

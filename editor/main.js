@@ -1,5 +1,5 @@
 ;(function() {
 
-  angular.module('theme-editor', []);
+  angular.module('theme-editor', [/*'decipher.history'*/]);
 
 })();

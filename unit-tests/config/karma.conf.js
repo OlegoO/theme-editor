@@ -9,9 +9,11 @@ module.exports = function(config) {
       'editor/services/defaultSchema.js',
       'editor/services/presets.js',
       'editor/services/modelBuilder.js',
+      'editor/services/stack.js',
       'editor/controllers/editorCtrl.js',
       'unit-tests/tests/editorCtrlSpec.js',
-      'unit-tests/tests/modelBuilderSpec.js'
+      'unit-tests/tests/modelBuilderSpec.js',
+      'unit-tests/tests/undoSpec.js'
     ],
     port: 9876,
     autoWatch: true,
