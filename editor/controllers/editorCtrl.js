@@ -1,9 +1,9 @@
 ;(function() {
 
   angular.module('theme-editor')
-    .controller('EditorCtrl', ['$scope', '$timeout', 'defaultSchema', 'presets', 'modelBuilder',/* 'History', */'stack', EditorCtrl]);
+    .controller('EditorCtrl', ['$scope', '$timeout', 'defaultSchema', 'presets', 'modelBuilder', 'stack', '$interval', EditorCtrl]);
 
-  function EditorCtrl($scope, $timeout, defaultSchema, presets, modelBuilder,/* History,*/ stack) {
+  function EditorCtrl($scope, $timeout, defaultSchema, presets, modelBuilder, stack, $interval) {
     var self = this;
 
     // Convert invalid id
@@ -25,6 +25,26 @@
       .then(function() {
         self.updateModel();
         self.updateStack();
+      })
+      .then(function() {
+        console.log(self.model);
+        angular.forEach(self.model, function(value, key) {
+          $scope.$watch('editor.model.' + key, function(newValue, oldValue) {
+            if (self.preventWatch) {
+              $timeout(function() {
+                self.preventWatch = false;
+              });
+            } else {
+              if (typeof oldValue === 'object') {
+                console.log(oldValue);
+              }
+              stack.push({
+                key: key,
+                value: oldValue
+              });
+            }
+          }, true);
+        });
       });
 
     self.updateModel = function() {
@@ -33,25 +53,16 @@
       self.model = modelBuilder.updateModelFromPresets(self.presets, self.model);
       // Update colorPicker directives by modelUpdated event
       $scope.$broadcast('modelUpdated', self.model);
-      //History.forget(self, 'model');
-      //History.watch('model', self);
     };
+
+    $timeout(function () {
+      console.log(self.model['logo.png']);
+      console.log(self.model);
+    }, 10000);
 
     self.updateStack = function() {
       stack.clear();
-      stack.push(self.model);
     };
-
-    $scope.$watch('editor.model', function(newValue, oldValue) {
-      if (self.preventWatch) {
-        $timeout(function() {
-          self.preventWatch = false;
-        });
-      } else if (newValue !== undefined) {
-        stack.push(newValue);
-      }
-      console.log(stack.length());
-    }, true);
 
     // Change current preset
     self.openPreset = function(name) {
@@ -84,17 +95,14 @@
     };
 
     self.undo = function() {
-      //History.undo('model', self);
-      if (stack.length() > 1) {
+      if (stack.length() > 0) {
         self.preventWatch = true;
-        stack.pop();
+        var oldValue = stack.pop();
         console.log(stack.length());
-        self.model = stack.get();
+        self.model[oldValue.key] = oldValue.value;
         $scope.$broadcast('modelUpdated', self.model);
       } else {
         console.log(stack.length());
-        self.model = stack.getFirst();
-        $scope.$broadcast('modelUpdated', self.model);
       }
     };
 

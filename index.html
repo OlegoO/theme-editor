@@ -212,9 +212,7 @@
                     <!-- Image -->
                     <label ng-if="setting.type === 'image'" for="{{setting.id}}" class="form-label">{{setting.label}}</label>
                     <!-- <div ng-if="setting.type === 'image'" class="form-file" editor-set-image editor-src="{{editor.model[setting.id]}}"></div> -->
-
-                    <editor-set-image ng-if="setting.type === 'image'" id="{{setting.id}}" src="editor.model[setting.id].src" name="editor.model[setting.id].name"></editor-set-image>
-
+                    <editor-set-image ng-if="setting.type === 'image'" id="{{setting.id}}" model="editor.model[setting.id]"></editor-set-image>
                     <p ng-if="setting.type === 'image' && setting.info !== undefined" class="form-help">{{setting.info}}</p>
                     <div ng-if="setting.type === 'image'" class="form-img"></div>
 
@@ -246,12 +244,12 @@
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> -->
     <script src="node_modules/angular/angular.js"></script>
-    <script src="bower_components/angular-history/history.js"></script>
     <script src="editor/main.js"></script>
     <script src="editor/services/defaultSchema.js"></script>
     <script src="editor/services/presets.js"></script>
     <script src="editor/services/modelBuilder.js"></script>
     <script src="editor/services/stack.js"></script>
+    <script src="editor/services/imageService.js"></script>
     <script src="editor/controllers/editorCtrl.js"></script>
     <script src="editor/directives/setActivePane.js"></script>
     <script src="editor/directives/back.js"></script>

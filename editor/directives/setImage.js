@@ -1,14 +1,13 @@
 ;(function() {
 
   angular.module('theme-editor')
-    .directive('editorSetImage', setImage);
+    .directive('editorSetImage', ['imageService', setImage]);
 
-  function setImage() {
+  function setImage(imageService) {
     return {
       restrict: 'AE',
       scope: {
-        src: "=",
-        name: "="
+        model: "="
       },
       template:
         "<div class='form-file'>\
@@ -23,33 +22,36 @@
           $self.find('input[type="file"]').trigger('click');
         });
 
-        function readURL(input) {
-          if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            var $self = $(input).parent().parents('.pane-settings');
-            reader.onload = function (e) {
-              scope.src = e.target.result;
-              scope.name = input.files[0].name;
-              $self.find('.form-img').html('');
-              $self.find('.form-img').html('<img src="' + scope.src + '" alt="" /><div class="name">' + scope.name + '</div>');
-              scope.$apply();
-            };
-            reader.readAsDataURL(input.files[0]);
-          }
-        }
-
         $(elem).children(".form-file").children("input").change(function() {
-          readURL(this);
-        });
+          var self = this;
 
-        if (scope.src !== undefined) {
-          var name = scope.name !== undefined ? scope.name : "";
-          $(input).parents('.pane-settings').find('.form-img').html('<img src="' + scope.src + '" alt="" /><div class="name">' + name + '</div>');
-        }
+          if (self.files && self.files[0]) {
+            var reader = new FileReader();
+            var $self = $(self).parent().parents('.pane-settings');
+            reader.onload = function(e) {
+              scope.$apply(function() {
+                scope.model = {
+                  src: imageService.upload(e.target.result),
+                  name: self.files[0].name
+                };
+              });
+
+              $self.find('.form-img').html('');
+              $self.find('.form-img').html('<img src="' + scope.model.src + '" alt="" /><div class="name">' + scope.model.name + '</div>');
+            };
+            reader.readAsDataURL(self.files[0]);
+          }
+        });
 
         scope.$on('modelUpdated', function(event, model) {
           var id = attrs.id;
-          var image = model[id] !== undefined ? model[id] : {src: "", name: ""};
+          if (model[id] === undefined) {
+            model[id] = {
+              src: "",
+              name: ""
+            };
+          }
+          var image = model[id];
 
           $(elem).parents('.pane-settings').find('.form-img').html('<img src="' + image.src + '" alt="" /><div class="name">' + image.name + '</div>');
         });

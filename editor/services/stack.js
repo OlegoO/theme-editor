@@ -13,9 +13,10 @@
     }
 
     obj.pop = function() {
-      if (stack.length > 1) {
-        stack.pop();
+      if (stack.length > 0) {
+        return stack.pop();
       }
+
       console.log(stack);
     };
 

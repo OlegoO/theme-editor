@@ -11,7 +11,6 @@
       },
       template: "<div class='bg'></div>",
       link: function(scope, elem, attrs) {
-
         $(elem).ColorPicker({
           color: scope.value,
           onChange: function (hsb, hex, rgb) {
