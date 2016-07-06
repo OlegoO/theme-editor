@@ -9,12 +9,14 @@
     obj.push = function(item) {
       var copy = JSON.parse(JSON.stringify(item));
       stack.push(copy);
+      console.log(stack);
     }
 
     obj.pop = function() {
       if (stack.length > 1) {
         stack.pop();
       }
+      console.log(stack);
     };
 
     obj.length = function() {
@@ -31,6 +33,7 @@
       } else {
         return stack;
       }
+      console.log(stack);
     };
 
     obj.clear = function() {
