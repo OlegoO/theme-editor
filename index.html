@@ -172,6 +172,11 @@
                 </div>
                 <div class="pane-cnt">
 
+                  <!-- <label class="form-label"> setting.label </label>
+                  <div class="form-file" editor-set-image src="qwe" name="asd"></div>
+                  <p class="form-help"> setting.info </p>
+                  <div class="form-img"></div> -->
+
                   <div class="pane-settings" ng-repeat="setting in item.settings" ng-class="{'pane-t': setting.type === 'header'}">
 
                     <!-- Header or Paragraph -->
@@ -206,7 +211,10 @@
 
                     <!-- Image -->
                     <label ng-if="setting.type === 'image'" for="{{setting.id}}" class="form-label">{{setting.label}}</label>
-                    <div ng-if="setting.type === 'image'" class="form-file" editor-set-image></div>
+                    <!-- <div ng-if="setting.type === 'image'" class="form-file" editor-set-image editor-src="{{editor.model[setting.id]}}"></div> -->
+
+                    <editor-set-image ng-if="setting.type === 'image'" id="{{setting.id}}" src="editor.model[setting.id].src" name="editor.model[setting.id].name"></editor-set-image>
+
                     <p ng-if="setting.type === 'image' && setting.info !== undefined" class="form-help">{{setting.info}}</p>
                     <div ng-if="setting.type === 'image'" class="form-img"></div>
 

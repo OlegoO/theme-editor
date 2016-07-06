@@ -5,29 +5,55 @@
 
   function setImage() {
     return {
-      restrict: 'A',
+      restrict: 'AE',
+      scope: {
+        src: "=",
+        name: "="
+      },
       template:
-        "<input type='file'>\
-        <button class='btn'>Choose file</button>",
+        "<div class='form-file'>\
+          <input type='file'>\
+          <button class='btn'>Choose file</button>\
+        </div>",
       link: function(scope, elem, attrs) {
-        $(elem).children('.btn').bind('click', function () {
-            var $self = $(this).parent();
-            $self.find('input[type="file"]').trigger('click');
+
+        $(elem).children('.form-file').children('.btn').bind('click', function () {
+          var $self = $(this).parent();
+          $self.find('input[type="file"]').val('');
+          $self.find('input[type="file"]').trigger('click');
         });
 
         function readURL(input) {
           if (input.files && input.files[0]) {
             var reader = new FileReader();
-            var $self = $(input).parents('.pane-settings');
+            var $self = $(input).parent().parents('.pane-settings');
             reader.onload = function (e) {
-              $self.find('.form-img').html('<img src="' + e.target.result + '" alt="" /><div class="name">' + input.files[0].name + '</div>');
+              scope.src = e.target.result;
+              scope.name = input.files[0].name;
+              $self.find('.form-img').html('');
+              $self.find('.form-img').html('<img src="' + scope.src + '" alt="" /><div class="name">' + scope.name + '</div>');
+              scope.$apply();
             };
             reader.readAsDataURL(input.files[0]);
           }
         }
-        $(elem).children("input").change(function(){
+
+        $(elem).children(".form-file").children("input").change(function() {
           readURL(this);
         });
+
+        if (scope.src !== undefined) {
+          var name = scope.name !== undefined ? scope.name : "";
+          $(input).parents('.pane-settings').find('.form-img').html('<img src="' + scope.src + '" alt="" /><div class="name">' + name + '</div>');
+        }
+
+        scope.$on('modelUpdated', function(event, model) {
+          var id = attrs.id;
+          var image = model[id] !== undefined ? model[id] : {src: "", name: ""};
+
+          $(elem).parents('.pane-settings').find('.form-img').html('<img src="' + image.src + '" alt="" /><div class="name">' + image.name + '</div>');
+        });
+
       }
     };
   }
