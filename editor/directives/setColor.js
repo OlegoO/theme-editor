@@ -14,8 +14,9 @@
         $(elem).ColorPicker({
           color: scope.value,
           onChange: function (hsb, hex, rgb) {
-            scope.$apply();
-            scope.value = '#' + hex;
+            scope.$apply(function() {
+              scope.value = '#' + hex;
+            });
             $(elem).find('div').css('backgroundColor', '#' + hex);
           }
         });

@@ -17,9 +17,9 @@
       link: function(scope, elem, attrs) {
 
         $(elem).children('.form-file').children('.btn').bind('click', function () {
-          var $self = $(this).parent();
-          $self.find('input[type="file"]').val('');
-          $self.find('input[type="file"]').trigger('click');
+          var input = $(this).parent().find('input[type="file"]');
+          input.val('');
+          input.trigger('click');
         });
 
         $(elem).children(".form-file").children("input").change(function() {
@@ -27,17 +27,19 @@
 
           if (self.files && self.files[0]) {
             var reader = new FileReader();
-            var $self = $(self).parent().parents('.pane-settings');
+            var $self = $(self).parents('.pane-settings');
             reader.onload = function(e) {
+              var id = attrs.id;
+              var file = imageService.upload(e.target.result);
+              var name = self.files[0].name;
+
               scope.$apply(function() {
-                scope.model = {
-                  src: imageService.upload(e.target.result),
-                  name: self.files[0].name
-                };
+                scope.model.src = file;
+                scope.model.name = name;
               });
 
               $self.find('.form-img').html('');
-              $self.find('.form-img').html('<img src="' + scope.model.src + '" alt="" /><div class="name">' + scope.model.name + '</div>');
+              $self.find('.form-img').html('<img src=\"' + file + '\" alt="" /><div class="name">' + name + '</div>');
             };
             reader.readAsDataURL(self.files[0]);
           }
@@ -51,9 +53,7 @@
               name: ""
             };
           }
-          var image = model[id];
-
-          $(elem).parents('.pane-settings').find('.form-img').html('<img src="' + image.src + '" alt="" /><div class="name">' + image.name + '</div>');
+          $(elem).parents('.pane-settings').find('.form-img').html('<img src="' + model[id].src + '" alt="" /><div class="name">' + model[id].name + '</div>');
         });
 
       }

@@ -211,8 +211,7 @@
 
                     <!-- Image -->
                     <label ng-if="setting.type === 'image'" for="{{setting.id}}" class="form-label">{{setting.label}}</label>
-                    <!-- <div ng-if="setting.type === 'image'" class="form-file" editor-set-image editor-src="{{editor.model[setting.id]}}"></div> -->
-                    <editor-set-image ng-if="setting.type === 'image'" id="{{setting.id}}" model="editor.model[setting.id]"></editor-set-image>
+                    <div ng-if="setting.type === 'image'" id="{{setting.id}}" class="form-file" editor-set-image model="editor.model[setting.id]"></div>
                     <p ng-if="setting.type === 'image' && setting.info !== undefined" class="form-help">{{setting.info}}</p>
                     <div ng-if="setting.type === 'image'" class="form-img"></div>
 

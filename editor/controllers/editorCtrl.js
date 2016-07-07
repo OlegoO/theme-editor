@@ -27,17 +27,13 @@
         self.updateStack();
       })
       .then(function() {
-        console.log(self.model);
         angular.forEach(self.model, function(value, key) {
-          $scope.$watch('editor.model.' + key, function(newValue, oldValue) {
+          $scope.$watch('editor.model[\"' + key + '\"]', function(newValue, oldValue) {
             if (self.preventWatch) {
               $timeout(function() {
                 self.preventWatch = false;
               });
             } else {
-              if (typeof oldValue === 'object') {
-                console.log(oldValue);
-              }
               stack.push({
                 key: key,
                 value: oldValue
@@ -51,14 +47,8 @@
       self.preventWatch = true;
       self.model = modelBuilder.modelFromSchema(self.settings, {});
       self.model = modelBuilder.updateModelFromPresets(self.presets, self.model);
-      // Update colorPicker directives by modelUpdated event
       $scope.$broadcast('modelUpdated', self.model);
     };
-
-    $timeout(function () {
-      console.log(self.model['logo.png']);
-      console.log(self.model);
-    }, 10000);
 
     self.updateStack = function() {
       stack.clear();
@@ -91,7 +81,6 @@
     };
     self.cancelSavingPreset = function() {
       self.savingPreset = false;
-      console.log(self.newPresetName);
     };
 
     self.undo = function() {
